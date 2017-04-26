@@ -128,9 +128,8 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 		
 		if((USART_RX_STA&0x8000)==0)//接收未完成
 		{
-			//if(Res == 0xFF)
 			{
-				if(USART_RX_STA < 0x13)
+				if(USART_RX_STA < 0x14)
 				{
 					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
 					USART_RX_STA++;
@@ -142,22 +141,6 @@ void USART1_IRQHandler(void)                	//串口1中断服务程序
 					USART_RX_STA|=0x8000;
 				}
 			}
-			
-//			if(USART_RX_STA&0x4000)//接收到了0x0d
-//			{
-//				if(Res!=0x0a)USART_RX_STA=0;//接收错误,重新开始
-//				else USART_RX_STA|=0x8000;	//接收完成了 
-//			}
-//			else //还没收到0X0D
-//			{	
-//				if(Res==0x0d)USART_RX_STA|=0x4000;
-//				else
-//				{
-//					USART_RX_BUF[USART_RX_STA&0X3FFF]=Res ;
-//					USART_RX_STA++;
-//					if(USART_RX_STA>(USART_REC_LEN-1))USART_RX_STA=0;//接收数据错误,重新开始接收	  
-//				}		 
-//			}
 		}   		 
   }
 		
