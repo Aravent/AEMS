@@ -1,0 +1,57 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.14.0.0
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Xu lenovo, xu, LIC=3UUFW-Q6XC4-GN4A5-GSTNG-URX7I-0TX5F
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.14.0.0
+Toolchain Path:  E:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 update 1 (build 106)
+Assembler:       Armasm.exe V5.05 update 1 (build 106)
+Linker/Locator:  ArmLink.exe V5.05 update 1 (build 106)
+Library Manager: ArmAr.exe V5.05 update 1 (build 106)
+Hex Converter:   FromElf.exe V5.05 update 1 (build 106)
+CPU DLL:         SARMCM3.DLL V5.14.0.0
+Dialog DLL:      DCM.DLL V1.13.1.0
+Target DLL:      Segger\JL2CM3.dll V2.99.13.0
+Dialog DLL:      TCM.DLL V1.14.4.0
+ 
+<h2>Project:</h2>
+F:\git\AirDwing\AEMS\USER\AEMS.uvprojx
+Project File Date:  04/26/2017
+
+<h2>Output:</h2>
+Build target 'AirDwing AEMS'
+compiling main.c...
+main.c(111): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "const char *"
+        crc32_send = crc32(send_data,strlen(send_data));
+main.c(111): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *"
+        crc32_send = crc32(send_data,strlen(send_data));
+main.c(119): warning:  #940-D: missing return statement at end of non-void function "nymph_package"
+  }
+main.c(156): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "char *"
+                        nymph_package(send_data,len);
+main.c(128): warning:  #550-D: variable "Can_Send_Flag" was set but never used
+        u8 Can_Send_Flag;
+main.c(131): warning:  #177-D: variable "dd" was declared but never referenced
+        int dd;
+main.c(119): warning: C4487E: read from variable 'crc32_send' with offset out of bounds
+}
+main.c: 7 warnings, 0 errors
+linking...
+Program Size: Code=8428 RO-data=1364 RW-data=52 ZI-data=2012  
+FromELF: creating hex file...
+"..\OBJ\CAN.axf" - 0 Error(s), 7 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  F:\git\AirDwing\AEMS\USER\RTE
+  E:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+</pre>
+</body>
+</html>

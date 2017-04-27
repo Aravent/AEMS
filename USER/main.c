@@ -4,6 +4,12 @@
 #include "can.h" 
 #include "string.h"
 
+#define BYTE0(dwTemp)       ( *( (unsigned char *)(&dwTemp)		) )
+#define BYTE1(dwTemp)       ( *( (unsigned char *)(&dwTemp) + 1) )
+#define BYTE2(dwTemp)       ( *( (unsigned char *)(&dwTemp) + 2) )
+#define BYTE3(dwTemp)       ( *( (unsigned char *)(&dwTemp) + 3) )
+#define BYTE4(dwTemp)       ( *( (unsigned char *)(&dwTemp) + 4) )
+
 unsigned char sid = 15; 
 u8 send_data[80];
 u8 send_nymph_data[100];
@@ -85,13 +91,31 @@ uint32_t crc32(char *buf, uint32_t size)//CRC计算
      return crc^0xFFFFFFFF;
 }
 
-int nymph_package(char send_data_t[80],u8 len_s)
+int nymph_package(char send_data_t[20],u8 len_s)
 {
 	int dd;
+	uint32_t crc32_send;
+	
+	send_nymph_data[0] = 0xFE;
+	send_nymph_data[1] = 0x14;
+	send_nymph_data[2] = 0xA2;
+	send_nymph_data[3] = 0x00;
+	send_nymph_data[4] = 0x00;
+	send_nymph_data[5] = 0x00;
+	send_nymph_data[6] = 0x12;
 	for(dd = 0;dd <= len_s;dd++)
 	{
-		send_nymph_data[dd] = send_data_t[dd];
+		send_nymph_data[dd+7] = send_data_t[dd];
 	}
+	
+	crc32_send = crc32(send_data,strlen(send_data));
+	//printf("消息内容CRC校验码：%010d\n",crc32(send_data_t,strlen(send_data_t)));
+	send_nymph_data[len_s + 7] = BYTE0(crc32_send);
+	send_nymph_data[len_s + 8] = BYTE1(crc32_send);
+	send_nymph_data[len_s + 9] = BYTE2(crc32_send);
+	send_nymph_data[len_s + 10] = BYTE3(crc32_send);
+	send_nymph_data[len_s + 11] = BYTE4(crc32_send);
+	send_nymph_data[len_s + 12] = 0xFD;
 }
 
 int main(void)
@@ -131,8 +155,8 @@ int main(void)
 //			}
 			nymph_package(send_data,len);
 			
-			s = (int)len/8;
-			if((len%8) != 0)s++;
+			s = (int)(len + 14)/8;
+			if(((len + 14)%8) != 0)s++;
 
 			for(h=0;h<s;h++)
 			{
